@@ -1,3 +1,5 @@
 # Ignore .pyc files
 *.pyc
 *.log
+data/*
+log/*

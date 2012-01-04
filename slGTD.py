@@ -30,7 +30,7 @@ import app.default.ventana as Ventana
 import app.config.ventanaconfig as Configuracion
 
 try:
-	import snack
+	from snack import *
 except ImportError:
 	raise ImportError("La libreria Newt no esta instalada.")
 
@@ -56,8 +56,25 @@ gw = config.get('Datos', 'default_gateway')
 file_inbox = config.get('Datos', 'inbox')
 
 def menuPrincipal():
-	""" Esta es la definicio del menu principal """
 	logger.info('Inicio del sistema, Menu principal.')
+	exit = False
+	while not exit:
+		bb = ButtonBar(formulario, (("Recopilar", "recopilar"),
+								("Procesar", "procesar"),
+								("Organizar", "organizar"),
+								("Revisar", "revisar")))
+		salir = Button("Salir")
+		g = GridForm(formulario, "slGTD 0.1", 1, 3)
+		g.add(bb, 0, 0, (2, 2, 2, 2))
+	
+		resultado = g.runOnce()
+		if (bb.buttonPressed(resultado) == "recopilar"):
+			inboxMenu = Ventana.Ventana(file_inbox,
+									"INBOX | slGTD",
+									"Tareas.",
+									formulario)
+			rta3 = inboxMenu.mostrarListado()
+
 	salir = False
 	while not salir:
 		primerMenu = Menu.Menu("slGTD 0.1",
@@ -164,6 +181,9 @@ def menuPrincipal():
 
 
 if __name__ == '__main__':
-	formulario = snack.SnackScreen()
+	(l, c) = str.split(commands.getoutput('stty size'))
+	(lineas, columnas) = (int(l), int(c))
+	(lineas, columnas) = lineas or 24, columnas or 79
+	formulario = SnackScreen()
 	menuPrincipal()
 	formulario.finish()
