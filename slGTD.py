@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#''' Sistema de control para DansGuardian '''
+#''' Sistema de control de Tareas '''
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -75,7 +75,7 @@ def menuPrincipal():
 			exit_sub_menu = False
 			while not exit_sub_menu:
 				inboxMenu = Ventana.Ventana(file_inbox,
-										"slGTD | INBOX",
+										"INBOX | slGTD",
 										"Tareas.",
 										formulario)
 				rta3 = inboxMenu.mostrarListado()
