@@ -31,7 +31,7 @@ import app.config.ventanaconfig as Configuracion
 try:
 	from snack import *
 except ImportError:
-	raise ImportError("La libreria Newt no esta instalada.")
+	print gettext.gettext('newt library not installed')
 
 config = ConfigParser.RawConfigParser()
 config.read(os.getcwd() + "/config/gtd.cnf")
@@ -46,30 +46,30 @@ logger = logging.getLogger(path_logging)
 file_inbox = config.get('Datos', 'inbox')
 
 def menuPrincipal():
-	logger.info('Inicio del sistema, Menu principal.')
+	logger.info(gettext.gettext('Start system, Main menu.'))
 	exit = False
 	while not exit:
-		bb = ButtonBar(formulario, (("Recopilar", "recopilar"),
-								("Procesar", "procesar"),
-								("Organizar", "organizar"),
-								("Revisar", "revisar"),
-								("Salir", "salir"))
+		bb = ButtonBar(formulario, ((gettext.gettext("Collect"), "collect"),
+								(gettext.gettext("Process"), "process"),
+								(gettext.gettext("Organize"), "organize"),
+								(gettext.gettext("Revise"), "revise"),
+								(gettext.gettext("Exit"), "exit"))
 								)
 		g = GridForm(formulario, "slGTD 0.1", 1, 3)
 		g.add(bb, 0, 0, (2, 2, 2, 2))
 	
 		resultado = g.runOnce()
-		if (bb.buttonPressed(resultado) == "recopilar"):
+		if (bb.buttonPressed(resultado) == "collect"):
 			inboxMenu = Ventana.Ventana(file_inbox,
 									"INBOX | slGTD",
-									"Tareas.",
+									gettext.gettext("Tasks."),
 									formulario)
 			rta3 = inboxMenu.mostrarListado()
-		elif (bb.buttonPressed(resultado) == "salir"):
-			logger.info('Finalización del sistema.')
+		elif (bb.buttonPressed(resultado) == "exit"):
+			logger.info(gettext.gettext('Closed slGTD.'))
 			exit = True
 		else:
-			logger.error('Operación no válida.')
+			logger.error(gettext.gettext('Operation not permitted.'))
 
 
 if __name__ == '__main__':
