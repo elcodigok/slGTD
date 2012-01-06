@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import re
 import os
+import gettext
 import datos as Datos
 
 try:
@@ -16,7 +18,7 @@ class Ventana:
 		self.texto = texto
 		self.screen = screen
 		if (titulo == ""):
-			self.titulo = "Sin Titulo"
+			self.titulo = gettext.gettext("No Title")
 
 	def leerArchivo(self):
 		if os.path.exists(self.archivo):
@@ -24,7 +26,7 @@ class Ventana:
 			self.lineaArchivo = self.archivoEntrada.readlines()
 			self.archivoEntrada.close()
 		else:
-			self.lineaArchivo = "Sin registros"
+			self.lineaArchivo = gettext.gettext("No Record")
 		return self.lineaArchivo
 
 	def posicionLista(self):
@@ -41,31 +43,33 @@ class Ventana:
 
 	def mostrarListado(self):
 		opcion = ""
-		while (opcion != "volver"):
+		while (opcion != "back"):
 			self.contenido = self.leerArchivo()
 			self.label = snack.Label(self.texto)
 			self.botones = snack.ButtonBar(self.screen,
-										(("Agregar", "agregar"),
-										("Borrar", "borrar"),
-										("Volver", "volver")))
+										((gettext.gettext("Add"), "add"),
+										(gettext.gettext("Delete"), "delete"),
+										(gettext.gettext("Back"), "back")))
 			self.lista = snack.Listbox(height=13,
-									width=45,
+									width=60,
 									returnExit=1,
 									showCursor=0,
 									scroll=1)
 			for registro in self.contenido:
-				self.lista.append(registro, registro)
+				fecha = registro.split("\t")[1]
+				recordView = registro.split("\t")[0] + "(" + fecha.strip(":created") + ")"
+				self.lista.append(recordView, registro)
 			self.grid = snack.GridForm(self.screen, self.titulo, 1, 3)
 			self.grid.add(self.label, 0, 0, growx=0, growy=0, anchorLeft=1)
 			self.grid.add(self.lista, 0, 1)
 			self.grid.add(self.botones, 0, 2, growx=1, growy=0)
 			respuesta = self.grid.runOnce()
 			opcion = self.botones.buttonPressed(respuesta)
-			if (opcion == "agregar"):
+			if (opcion == "add"):
 				cargaDeValores = Datos.Datos(self.archivo,
-											"Nuevo",
+											gettext.gettext("New"),
 											self.texto,
 											self.screen)
 				cargaDeValores.altas()
-			elif (opcion == "borrar"):
+			elif (opcion == "delete"):
 				self.guardarArchivo(self.lista.current())
