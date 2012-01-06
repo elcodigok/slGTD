@@ -1,11 +1,3 @@
 [Datos]
 logging = /home/dmaldonado/Proyectos/slGTD/log/gtd.log
-exception_ip = /home/dmaldonado/Proyectos/slGTD/data/exceptioniplist
-default_gateway = 
-banned_extension = /home/dmaldonado/Proyectos/slGTD/data/bannedextensionlist
-exception_site = /home/dmaldonado/Proyectos/slGTD/data/exceptionsitelist
-banned_ip = /home/dmaldonado/Proyectos/slGTD/data/bannediplist
-exception_extension = /home/dmaldonado/Proyectos/slGTD/data/exceptionextensionlist
-banned_site = /home/dmaldonado/Proyectos/slGTD/data/bannedsitelist
-
 inbox = /home/dmaldonado/Proyectos/slGTD/data/inbox
