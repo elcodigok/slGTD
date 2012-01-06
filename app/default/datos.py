@@ -28,8 +28,8 @@ class Datos:
 		if (descripcion != ""):
 			self.archivoEntrada = open(self.archivo, "a")
 			self.archivoEntrada.write(nombre)
-			self.archivoEntrada.write("\t :created" + date.today().isoformat())
-			self.archivoEntrada.write("\t :pNone"  + "\n")
+			self.archivoEntrada.write("\t:created" + date.today().isoformat())
+			self.archivoEntrada.write("\t:pNone"  + "\n")
 		else:
 			self.archivoEntrada = open(self.archivo, "a")
 			self.archivoEntrada.write(nombre + "\n")

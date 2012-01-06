@@ -51,12 +51,14 @@ class Ventana:
 										(gettext.gettext("Delete"), "delete"),
 										(gettext.gettext("Back"), "back")))
 			self.lista = snack.Listbox(height=13,
-									width=45,
+									width=60,
 									returnExit=1,
 									showCursor=0,
 									scroll=1)
 			for registro in self.contenido:
-				self.lista.append(registro, registro)
+				fecha = registro.split("\t")[1]
+				recordView = registro.split("\t")[0] + "(" + fecha.strip(":created") + ")"
+				self.lista.append(recordView, registro)
 			self.grid = snack.GridForm(self.screen, self.titulo, 1, 3)
 			self.grid.add(self.label, 0, 0, growx=0, growy=0, anchorLeft=1)
 			self.grid.add(self.lista, 0, 1)
