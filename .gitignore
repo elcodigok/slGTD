@@ -1,5 +1,7 @@
 # Ignore .pyc files
 *.pyc
 *.log
-data/*
-log/*
+data/inbox
+data/project
+data/someday
+data/waiting
