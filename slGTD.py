@@ -26,6 +26,7 @@ import gettext
 
 import app.default.menu as Menu
 import app.default.ventana as Ventana
+import app.process.process as Process
 import app.config.ventanaconfig as Configuracion
 
 try:
@@ -65,6 +66,11 @@ def menuPrincipal():
 									gettext.gettext("Tasks."),
 									formulario)
 			rta3 = inboxMenu.mostrarListado()
+		elif (bb.buttonPressed(resultado) == "process"):
+			processMenu = Process.Process(file_inbox,
+									"PROCESS | slGTD",
+									gettext.gettext("este es otro texto"),
+									formulario)
 		elif (bb.buttonPressed(resultado) == "exit"):
 			logger.info(gettext.gettext('Closed slGTD.'))
 			exit = True
